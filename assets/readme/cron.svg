@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">每天 08:00 UTC 扫 KV</title>
+  <desc id="desc">Cloudflare cron 0 8 * * * 触发 Worker。按系统时区算剩余天数；勾了「周期按农历」的条目走农历距离。落在 reminderDays 窗口内就按已启用渠道推送。默认只勾 NotifyX。自动续订会先把过期日滚到下一期再决定要不要提醒。</desc>
+
+  <defs>
+    <clipPath id="cron-clip">
+      <rect width="1200" height="420" rx="18"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#cron-clip)">
+    <rect width="1200" height="420" fill="#1A1714"/>
+
+    <!-- section label -->
+    <text x="56" y="48" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" letter-spacing="1.8" fill="#D9A441">CRON 0 8 * * *</text>
+    <text x="1144" y="48" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">UTC · 可改</text>
+
+    <text x="56" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="32" font-weight="700" fill="#F6F0E6">早上不是魔法，是一次扫表。</text>
+    <text x="56" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#9B9186">停用的跳过。过期且开了自动续订的，先滚到下一期。</text>
+
+    <!-- 08:00 stamp -->
+    <g transform="translate(128 250)">
+      <circle r="86" fill="#241F1B" stroke="#D9A441" stroke-width="2"/>
+      <circle r="72" fill="none" stroke="#C4452D" stroke-width="1.5"/>
+      <text y="-8" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="36" font-weight="700" fill="#F6F0E6">08:00</text>
+      <text y="24" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#D9A441">UTC</text>
+      <text y="118" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">Worker 醒来</text>
+    </g>
+
+    <!-- arrow 1 -->
+    <path d="M230 250 H320" fill="none" stroke="#D9A441" stroke-width="2"/>
+    <path d="M312 242 L324 250 L312 258" fill="none" stroke="#D9A441" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- KV ledger -->
+    <g transform="translate(340 168)">
+      <rect width="400" height="196" rx="10" fill="#F6F0E6"/>
+      <rect width="400" height="40" rx="10" fill="#EDE4D6"/>
+      <rect y="28" width="400" height="12" fill="#EDE4D6"/>
+      <g fill="#1A1714">
+        <circle cx="24" cy="20" r="3.2"/>
+        <circle cx="48" cy="20" r="3.2"/>
+        <circle cx="72" cy="20" r="3.2"/>
+        <circle cx="96" cy="20" r="3.2"/>
+        <circle cx="120" cy="20" r="3.2"/>
+      </g>
+      <text x="148" y="26" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" fill="#5C534A">SUBSCRIPTIONS_KV</text>
+
+      <text x="20" y="70" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">Netflix</text>
+      <text x="148" y="70" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">七月廿六</text>
+      <text x="268" y="70" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700" fill="#C4452D">D-3</text>
+      <text x="332" y="70" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#C4452D">推</text>
+
+      <text x="20" y="108" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">iCloud</text>
+      <text x="148" y="108" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">七月廿九</text>
+      <text x="268" y="108" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700" fill="#C4452D">D-6</text>
+      <text x="332" y="108" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#C4452D">推</text>
+
+      <text x="20" y="146" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">妈妈生日</text>
+      <text x="148" y="146" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">八月十一</text>
+      <text x="248" y="146" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">农历年</text>
+      <text x="332" y="146" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">未到</text>
+
+      <text x="20" y="180" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">停用的不看。过期先续再算。</text>
+    </g>
+
+    <!-- arrow 2 -->
+    <path d="M756 250 H846" fill="none" stroke="#D9A441" stroke-width="2"/>
+    <path d="M838 242 L850 250 L838 258" fill="none" stroke="#D9A441" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- channels -->
+    <g transform="translate(868 156)">
+      <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">已勾渠道</text>
+
+      <rect y="16" width="276" height="40" rx="8" fill="#F6F0E6"/>
+      <rect y="16" width="6" height="40" rx="3" fill="#D9A441"/>
+      <text x="20" y="42" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">NotifyX</text>
+      <text x="256" y="42" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#C4452D">默认</text>
+
+      <rect y="64" width="276" height="40" rx="8" fill="#241F1B" stroke="#3A342E"/>
+      <text x="20" y="90" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#F6F0E6">Telegram</text>
+
+      <rect y="112" width="276" height="40" rx="8" fill="#241F1B" stroke="#3A342E"/>
+      <text x="20" y="138" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#F6F0E6">企业微信应用</text>
+
+      <rect y="160" width="276" height="40" rx="8" fill="#241F1B" stroke="#3A342E"/>
+      <text x="20" y="186" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#F6F0E6">企业微信机器人</text>
+
+      <rect y="208" width="276" height="40" rx="8" fill="#241F1B" stroke="#3A342E"/>
+      <text x="20" y="234" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#F6F0E6">邮件 · Resend</text>
+    </g>
+  </g>
+</svg>

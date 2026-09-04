@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">公历月 vs 农历年</title>
+  <desc id="desc">同一套农历表（1900–2100）两种算法。iCloud 勾公历：2026-08-10 加一个月到 2026-09-10。妈妈生日勾「周期按农历」：农历八月十一加一年仍是八月十一，公历从 2026-09-21 漂到 2027-09-11。日期由项目 lunarCalendar / lunarBiz 算出。</desc>
+
+  <defs>
+    <clipPath id="lunar-clip">
+      <rect width="1200" height="400" rx="18"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#lunar-clip)">
+    <rect width="1200" height="400" fill="#1A1714"/>
+
+    <text x="56" y="48" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" letter-spacing="1.8" fill="#5E7F8A">LUNAR 1900–2100</text>
+    <text x="56" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="32" font-weight="700" fill="#F6F0E6">周期勾「农历」，到期日会漂。</text>
+    <text x="56" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#9B9186">列表仍显示公历。农历是算法，不是第二套日历 UI。</text>
+
+    <!-- solar path -->
+    <g transform="translate(56 156)">
+      <rect width="528" height="196" rx="12" fill="#F6F0E6"/>
+      <rect width="528" height="44" rx="12" fill="#EDE4D6"/>
+      <rect y="32" width="528" height="12" fill="#EDE4D6"/>
+      <text x="20" y="30" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">iCloud · 公历月</text>
+      <text x="508" y="30" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">useLunar off</text>
+
+      <g transform="translate(20 64)">
+        <rect width="150" height="112" rx="8" fill="#FFFBF4" stroke="#E4D9C8"/>
+        <g fill="#9B9186">
+          <circle cx="20" cy="12" r="3"/>
+          <circle cx="40" cy="12" r="3"/>
+          <circle cx="60" cy="12" r="3"/>
+          <circle cx="80" cy="12" r="3"/>
+          <circle cx="100" cy="12" r="3"/>
+          <circle cx="120" cy="12" r="3"/>
+        </g>
+        <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="28" font-weight="700" fill="#1F1A16">08-10</text>
+        <text x="16" y="84" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">六月廿八</text>
+        <text x="16" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">2026</text>
+      </g>
+
+      <text x="188" y="124" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#C4452D">+ 1 月</text>
+
+      <g transform="translate(268 64)">
+        <rect width="150" height="112" rx="8" fill="#FFFBF4" stroke="#C4452D"/>
+        <g fill="#C4452D">
+          <circle cx="20" cy="12" r="3"/>
+          <circle cx="40" cy="12" r="3"/>
+          <circle cx="60" cy="12" r="3"/>
+          <circle cx="80" cy="12" r="3"/>
+          <circle cx="100" cy="12" r="3"/>
+          <circle cx="120" cy="12" r="3"/>
+        </g>
+        <text x="16" y="56" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="28" font-weight="700" fill="#1F1A16">09-10</text>
+        <text x="16" y="84" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#5E7F8A">七月廿九</text>
+        <text x="16" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">2026</text>
+      </g>
+
+      <text x="432" y="124" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">日号</text>
+      <text x="432" y="148" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#9B9186">对齐</text>
+    </g>
+
+    <!-- lunar path -->
+    <g transform="translate(616 156)">
+      <rect width="528" height="196" rx="12" fill="#F6F0E6"/>
+      <rect width="528" height="44" rx="12" fill="#DCE6E8"/>
+      <rect y="32" width="528" height="12" fill="#DCE6E8"/>
+      <text x="20" y="30" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#1F1A16">妈妈生日 · 农历年</text>
+      <text x="508" y="30" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#5E7F8A">useLunar on</text>
+
+      <g transform="translate(20 64)">
+        <rect width="150" height="112" rx="8" fill="#FFFBF4" stroke="#E4D9C8"/>
+        <g fill="#5E7F8A">
+          <circle cx="20" cy="12" r="3"/>
+          <circle cx="40" cy="12" r="3"/>
+          <circle cx="60" cy="12" r="3"/>
+          <circle cx="80" cy="12" r="3"/>
+          <circle cx="100" cy="12" r="3"/>
+          <circle cx="120" cy="12" r="3"/>
+        </g>
+        <text x="16" y="52" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="22" font-weight="700" fill="#1F1A16">八月十一</text>
+        <text x="16" y="80" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#5E7F8A">09-21</text>
+        <text x="16" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">2026</text>
+      </g>
+
+      <text x="188" y="124" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" font-weight="700" fill="#C4452D">+ 1 年</text>
+
+      <g transform="translate(268 64)">
+        <rect width="150" height="112" rx="8" fill="#FFFBF4" stroke="#C4452D"/>
+        <g fill="#C4452D">
+          <circle cx="20" cy="12" r="3"/>
+          <circle cx="40" cy="12" r="3"/>
+          <circle cx="60" cy="12" r="3"/>
+          <circle cx="80" cy="12" r="3"/>
+          <circle cx="100" cy="12" r="3"/>
+          <circle cx="120" cy="12" r="3"/>
+        </g>
+        <text x="16" y="52" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="22" font-weight="700" fill="#1F1A16">八月十一</text>
+        <text x="16" y="80" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="20" fill="#C4452D">09-11</text>
+        <text x="16" y="104" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#9B9186">2027</text>
+      </g>
+
+      <text x="432" y="124" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#C4452D">公历</text>
+      <text x="432" y="148" font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans CJK SC', sans-serif" font-size="18" fill="#C4452D">漂 10 天</text>
+    </g>
+  </g>
+</svg>

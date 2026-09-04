@@ -1,150 +1,75 @@
-# SubsTracker - 订阅管理与提醒系统
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="订阅管理系统：跑在 Cloudflare Workers 上的到期提醒。到期按公历算，周期可走农历。三张台历撕页来自项目自己的农历表——Netflix 9月7日七月廿六剩余3天，iCloud 9月10日七月廿九按月续，妈妈生日农历八月十一，今年公历9月21日，明年会漂到9月11日。">
+</p>
 
-基于Cloudflare Workers的轻量级订阅管理系统，帮助您轻松跟踪各类订阅服务的到期时间，并通过Telegram,企业微信等发送及时提醒。
+单文件 Worker。订阅、生日、续费周期写进 KV；每天 `cron` 扫一遍，落在提前提醒窗口里就按你勾的渠道推送。
 
-![image](https://github.com/user-attachments/assets/22ff1592-7836-4f73-aa13-24e9d43d7064)
+农历不是装饰。列表可以显示农历，周期还可以**按农历走**——生日停在八月十一，公历日期自己漂。
 
-## ✨ 功能特色
+## 这是什么
 
-### 🎯 核心功能
-- **订阅管理**：添加、编辑、删除各类订阅服务
-- **智能提醒**：自定义提前提醒天数，自动续订计算
-- **农历显示**：支持农历日期显示，可控制开关
-- **状态管理**：订阅启用/停用，过期状态自动识别
+管理页在 Worker 里，数据在 `SUBSCRIPTIONS_KV`。一条订阅有：
 
-### 📱 多渠道通知
-- **Telegram**：支持 Telegram Bot 通知
-- **NotifyX**：集成 NotifyX 推送服务
-- **企业微信应用通知**：支持企业微信应用推送
-- **企业微信机器人**：支持企业微信群机器人通知
-- **邮件通知**：基于 Resend 的专业邮件服务
-- **自定义 Webhook**：支持自定义请求格式和模板
+| 字段 | 作用 |
+| --- | --- |
+| 名称 / 类型 | 流媒体、云服务、软件、生日… |
+| 开始日 + 周期 | 天 / 月 / 年，可自动算出到期日 |
+| 提前提醒 | `0` = 只在到期当天；`N` = 提前 N 天开始 |
+| 自动续订 | 过期后按周期滚到下一期 |
+| 周期按农历 | `useLunar`：用 1900–2100 农历加周期，再转回公历 |
 
-### 🌙 农历功能
-- **农历转换**：支持 1900-2100 年农历转换
-- **智能显示**：列表和编辑页面可控制农历显示
-- **通知集成**：通知消息中可包含农历信息
+启用 / 停用是开关。停用的条目，定时任务直接跳过。
 
-### 🎨 用户体验
-- **响应式设计**：完美适配桌面端和移动端
-- **备注优化**：长备注自动截断，悬停显示完整内容
-- **实时预览**：日期选择时实时显示对应农历
-- **用户偏好**：记住用户的显示偏好设置
+<p align="center">
+  <img src="./assets/readme/cron.svg" width="100%" alt="每天 08:00 UTC，Worker 读 SUBSCRIPTIONS_KV。Netflix 剩余 3 天、iCloud 剩余 6 天都在默认 7 天窗口内要推；妈妈生日农历年还未到。默认渠道是 NotifyX，还可勾 Telegram、企业微信应用、企业微信机器人、Resend 邮件。">
+</p>
 
-## 🚀 一键部署
+## 提醒怎么发
 
-### 点击按钮，一键部署到 CloudFlare Workers,
+`wrangler.toml` 里是 `0 8 * * *`。Cloudflare cron 用 **UTC**，所以这次触发是 UTC 08:00（北京时间下午 4 点）。要改成自己时区的早上，改 cron，并在系统配置里把时区设成 `Asia/Shanghai` 等——剩余天数按这个时区的午夜算。
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/wangwangit/SubsTracker)
+渠道可多选，系统配置里各有「测试」按钮：
 
+| 渠道 | 要填的 |
+| --- | --- |
+| NotifyX（默认勾选） | [NotifyX](https://www.notifyx.cn/) API Key |
+| Telegram | [@BotFather](https://t.me/BotFather) token + [@userinfobot](https://t.me/userinfobot) Chat ID |
+| 企业微信应用 / 自定义 Webhook | URL；可选 method、JSON 头、模板（`{{title}}` `{{content}}` `{{timestamp}}`） |
+| 企业微信机器人 | 群机器人 Webhook；文本或 Markdown；可选 @ 手机号 / @ 所有人 |
+| 邮件 | [Resend](https://developers.cloudflare.com/workers/tutorials/send-emails-with-resend/) API Key、已验证发件域名、收件人 |
 
-> 适用于新部署的,以前部署过的直接替换js中的内容即可!
+没填密钥的渠道，勾了也不会发出去。通知里可以带农历。
 
-## 📋 三步开始使用
+<p align="center">
+  <img src="./assets/readme/lunar.svg" width="100%" alt="两种周期。iCloud 走公历：2026-08-10 六月廿八加一个月到 2026-09-10 七月廿九，日号对齐。妈妈生日勾周期按农历：八月十一加一年仍是八月十一，公历从 2026-09-21 漂到 2027-09-11。">
+</p>
 
-### 1️⃣ 一键部署
-Fork仓库,然后点击自己仓库里的部署按钮，等待部署完成,**注意,KV名称修改为 `SUBSCRIPTIONS_KV`**
-![image.png](https://img.wangwangit.com/file/1751942578108_image.png)
+## 跑起来
 
-### 2️⃣ 首次登录
-- 访问部署后的域名
-- 默认用户名：`admin`
-- 默认密码：`password`
+KV 绑定名必须是 `SUBSCRIPTIONS_KV`。本仓库 `wrangler.toml` 里的 `id` 请换成你自己的命名空间。
 
-### 3️⃣ 开始使用
-1. **修改默认密码**（进入系统配置）
-2. **配置通知渠道**（选择一个或多个）
-3. **添加订阅**，设置提醒
-4. **享受智能提醒**！
+```bash
+npx wrangler kv namespace create SUBSCRIPTIONS_KV
+# 把返回的 id 写进 wrangler.toml，然后：
+npx wrangler deploy
+```
 
-## 🔧 通知渠道配置
+没有 Wrangler 时：在 Cloudflare Dashboard 新建 Worker，粘贴 `index.js`，绑上同名 KV，触发器加上 cron。
 
-### Telegram
-- **Bot Token**: 从 [@BotFather](https://t.me/BotFather) 获取
-- **Chat ID**: 从 [@userinfobot](https://t.me/userinfobot) 获取
+打开 `*.workers.dev`：
 
-### NotifyX
-- **API Key**: 从 [NotifyX官网](https://www.notifyx.cn/) 获取
+1. 登录 `admin` / `password`（立刻到系统配置改掉）
+2. 选时区，勾通知渠道并点测试
+3. 添加一条订阅，设提醒天数
 
-### 邮件通知 (Resend)
-- **API Key**: 从 [Resend官方教程](https://developers.cloudflare.com/workers/tutorials/send-emails-with-resend/) 获取
-- **发件人邮箱**: 必须是已在Resend验证的域名邮箱
-- **收件人邮箱**: 接收通知的邮箱地址
-- 支持HTML格式的美观邮件模板
+一键部署（会用本仓库作模板）：
 
-### 企业微信应用通知
-- **推送 URL**: 从 [企业微信应用通知平台](https://push.996007.icu) 获取
-- 支持自定义请求头和消息模板
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/tsumon/subscription-manager)
 
-### 企业微信机器人
-- **推送 URL**: 参考[官方文档](https://developer.work.weixin.qq.com/document/path/91770)获取
+## 先看清的限制
 
-
-> 💡 **提示**: 系统默认每天早上8点自动检查即将到期的订阅
-
-
-**欢迎大家关注我的公众号**
-
-![39d8d5a902fa1eee6cbbbc8a0dcff4b](https://github.com/user-attachments/assets/96bae085-4299-4377-9958-9a3a11294efc)
-
-
-
-## 🚀 手动部署指南
-
-### 前提条件
-
-- Cloudflare账户
-- Telegram Bot (用于发送通知)
-- 可以直接将代码丢给AI,帮助查漏补缺
-
-### 部署步骤
-
-1.登陆cloudflare,创建worker,粘贴本项目中的js代码,点击部署
-
-![image](https://github.com/user-attachments/assets/ff4ac794-01e1-4916-b226-1f4f604dcbd3)
-
-
-2.创建KV键值 **SUBSCRIPTIONS_KV**
-
-![image](https://github.com/user-attachments/assets/c9ebaf3e-6015-4400-bb0a-1a55fd5e14d2)
-
-
-3.给worker绑定上键值对,以及设置定时执行时间!
-
-![image](https://github.com/user-attachments/assets/25b663b3-8e8e-4386-a499-9b6bf12ead76)
-
-
-4.打开worker提供的域名地址,输入默认账号密码: admin  password (或者admin admin123),可以在代码中查看默认账号密码!
-
-![image](https://github.com/user-attachments/assets/5dac1ce0-43a3-4642-925c-d9cf21076454)
-
-
-5.前往系统配置,修改账号密码,以及配置tg通知的信息
-
-![image](https://github.com/user-attachments/assets/f6db2089-28a1-439d-9de0-412ee4b2807f)
-
-
-6.配置完成可以点击测试通知,查看是否能够正常通知,然后就可以正常添加订阅使用了!
-
-![image](https://github.com/user-attachments/assets/af530379-332c-4482-9e6e-229a9e24775e)
-
-
-## 赞助
-本项目 CDN 加速及安全防护由 Tencent EdgeOne 赞助：EdgeOne 提供长期有效的免费套餐，包含不限量的流量和请求，覆盖中国大陆节点，且无任何超额收费，感兴趣的朋友可以点击下面的链接领取
-
-[[Best Asian CDN, Edge, and Secure Solutions - Tencent EdgeOne](https://edgeone.ai/?from=github)]
-
-[![image](https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png)](https://edgeone.ai/media/34fe3a45-492d-4ea4-ae5d-ea1087ca7b4b.png)
-
-## 🤝 贡献
-
-欢迎贡献代码、报告问题或提出新功能建议!
-
-## 📜 许可证
-
-MIT License
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=wangwangit/SubsTracker&type=Date)](https://www.star-history.com/#wangwangit/SubsTracker&Date)
-
+- 单 Worker、单 KV，没有多用户。
+- 默认密码写在代码里，部署后不改等于公开后台。
+- 农历范围 1900–2100；闰月由 `lunarCalendar` 处理。
+- cron 默认 UTC 08:00，不是北京时间早上 8 点。
+- 这是 [wangwangit/SubsTracker](https://github.com/wangwangit/SubsTracker) 的源码导入，许可证 MIT。
